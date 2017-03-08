@@ -66,7 +66,7 @@ AMapCoordSys.create = function (ecModel, api) {
     if (typeof AMap === 'undefined') {
       throw new Error('AMap api is not loaded');
     }
-    // Overlay = Overlay || createOverlayCtor();
+
     if (amapCoordSys) {
       throw new Error('Only one amap component can exist');
     }
@@ -85,35 +85,27 @@ AMapCoordSys.create = function (ecModel, api) {
       // Not support IE8
       amapRoot.classList.add('ec-extension-amap');
       root.appendChild(amapRoot);
-      var amap = amapModel.__amap = new AMap.Map(amapRoot);
 
-      // var overlay = new Overlay(viewportRoot);
-      // amap.addOverlay(overlay);
-      var layer = new AMap.CustomLayer(viewportRoot);
+      var options = amapModel.get() || {};
+      var amap = amapModel.__amap = new AMap.Map(amapRoot, options);
+
+      var layer = amapModel.__layer = new AMap.CustomLayer(viewportRoot);
       layer.setMap(amap);
     }
-    var amap = amapModel.__amap;
+    var amap = amapModel.getAMap();
+    var layer = amapModel.getLayer();
+    layer.hide();
 
-    // Set amap options
-    // centerAndZoom before layout and render
-    var center = amapModel.get('center');
-    var zoom = amapModel.get('zoom');
-    if (center && zoom) {
-      var pt = new AMap.LngLat(center[0], center[1]);
-      amap.setZoomAndCenter(zoom, pt);
-    }
-
-    var mapStyle = amapModel.get('mapStyle');
-    if (mapStyle) {
-      amap.setMapStyle(mapStyle)
-    }
+    var zoom = amap.getZoom();
+    var center = amap.getCenter();
 
     amapCoordSys = new AMapCoordSys(amap, api);
     amapCoordSys.setMapOffset(amapModel.__mapOffset || [0, 0]);
     amapCoordSys.setZoom(zoom);
-    amapCoordSys.setCenter(center);
+    amapCoordSys.setCenter([center.lng, center.lat]);
 
     amapModel.coordinateSystem = amapCoordSys;
+    layer.show();
   });
 
   ecModel.eachSeries(function (seriesModel) {

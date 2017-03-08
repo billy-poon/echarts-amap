@@ -10,6 +10,11 @@ module.exports = require('echarts').extendComponentModel({
     return this.__amap;
   },
 
+  getLayer: function() {
+    // __layer is injected when creating BMapCoordSys
+    return this.__layer;
+  },
+
   setCenterAndZoom: function (center, zoom) {
     this.option.center = center;
     this.option.zoom = zoom;
@@ -23,8 +28,5 @@ module.exports = require('echarts').extendComponentModel({
   defaultOption: {
     center: [116.397475,39.908695],
     zoom: 4,
-    // normal, blue_night, light, fresh, dark
-    mapStyle: undefined,
-    roam: false
   }
 });

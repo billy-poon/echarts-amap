@@ -1,3 +1,31 @@
+function throttle(fn, time, context) {
+	var lock, args, wrapperFn, later;
+
+	later = function () {
+		// reset lock and call if queued
+		lock = false;
+		if (args) {
+			wrapperFn.apply(context, args);
+			args = false;
+		}
+	};
+
+	wrapperFn = function () {
+		if (lock) {
+			// called too soon, queue to call later
+			args = arguments;
+
+		} else {
+			// call and lock until later
+			fn.apply(context, arguments);
+			setTimeout(later, time);
+			lock = true;
+		}
+	};
+
+	return wrapperFn;
+}
+
 module.exports = require('echarts').extendComponentView({
   type: 'amap',
 
@@ -7,7 +35,7 @@ module.exports = require('echarts').extendComponentView({
     var amap = aMapModel.getAMap();
     var viewportRoot = api.getZr().painter.getViewportRoot();
     var coordSys = aMapModel.coordinateSystem;
-    var moveHandler = function (type, target) {
+    var moveHandler = function (e) {
       if (rendering) {
           return;
       }
@@ -36,18 +64,28 @@ module.exports = require('echarts').extendComponentView({
       });
     }
 
+    function resizeHandler(e) {
+      api.getZr().resize();
+      moveHandler.call(this, e)
+    }
+
+    var throttledResizeHandler = throttle(resizeHandler, 300, map)
+
     amap.off('movestart', this._oldMoveHandler);
     amap.off('zoomend', this._oldZoomEndHandler);
     amap.off('moveend', this._oldZoomEndHandler);
-    amap.off('complete', zoomEndHandler)
+    amap.off('complete', this._oldZoomEndHandler);
+    aMapModel.get('resizeEnable') && amap.off('resize', this._oldResizeHandler);
 
     amap.on('movestart', moveHandler);
     amap.on('zoomend', zoomEndHandler);
     amap.on('moveend', zoomEndHandler);
-    amap.on('complete', zoomEndHandler)
+    amap.on('complete', zoomEndHandler);
+    aMapModel.get('resizeEnable') && amap.on('resize', throttledResizeHandler);
 
     this._oldMoveHandler = moveHandler;
     this._oldZoomEndHandler = zoomEndHandler;
+    this._oldResizeHandler = throttledResizeHandler;
 
     // var roam = aMapModel.get('roam');
     // if (roam && roam !== 'scale') {

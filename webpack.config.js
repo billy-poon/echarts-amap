@@ -12,5 +12,6 @@ module.exports = {
   },
   externals: {
     'echarts': 'echarts'
-  }
+  },
+  devtool: PROD ? '#source-map' : '#eval-source-map'
 };
