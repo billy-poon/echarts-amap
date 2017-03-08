@@ -21,5 +21,5 @@ require('echarts').registerAction({
 });
 
 module.exports = {
-  version: '1.0.0-rc2'
+  version: process.env.VERSION
 };

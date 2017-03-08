@@ -1,1 +1,1 @@
-module.exports = require('./src/amap.js')
+module.exports = require('./dist/echarts-amap.min.js')

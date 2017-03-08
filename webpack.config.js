@@ -1,5 +1,8 @@
+var webpack = require('webpack');
+var packagejson = require('./package.json');
 var PROD = process.argv.indexOf('-p') >= 0;
 
+console.log('building package version ' + packagejson.version)
 module.exports = {
   entry: {
     'amap': __dirname + '/src/amap.js',
@@ -13,5 +16,10 @@ module.exports = {
   externals: {
     'echarts': 'echarts'
   },
-  devtool: PROD ? '#source-map' : '#eval-source-map'
+  devtool: PROD ? '#source-map' : '#eval-source-map',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.VERSION': JSON.stringify(packagejson.version)
+    })
+  ]
 };
