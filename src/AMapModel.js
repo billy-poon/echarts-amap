@@ -6,12 +6,12 @@ module.exports = require('echarts').extendComponentModel({
   type: 'amap',
 
   getAMap: function () {
-    // __amap is injected when creating BMapCoordSys
+    // __amap is injected when creating AMapCoordSys
     return this.__amap;
   },
 
   getLayer: function() {
-    // __layer is injected when creating BMapCoordSys
+    // __layer is injected when creating AMapCoordSys
     return this.__layer;
   },
 
