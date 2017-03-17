@@ -15,6 +15,10 @@ module.exports = require('echarts').extendComponentModel({
     return this.__layer;
   },
 
+  getMapOptions: function() {
+    return this.__options;
+  },
+
   setCenterAndZoom: function (center, zoom) {
     this.option.center = center;
     this.option.zoom = zoom;

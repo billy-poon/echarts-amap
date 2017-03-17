@@ -87,6 +87,7 @@ AMapCoordSys.create = function (ecModel, api) {
       root.appendChild(amapRoot);
 
       var options = amapModel.get() || {};
+      options = amapModel.__options = echarts.util.clone(options);
       var amap = amapModel.__amap = new AMap.Map(amapRoot, options);
 
       var layer = amapModel.__layer = new AMap.CustomLayer(viewportRoot);
