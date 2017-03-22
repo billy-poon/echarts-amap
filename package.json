@@ -1,6 +1,6 @@
 {
   "name": "echarts-amap",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "description": "\u0016an echarts extension to support AMap(http://lbs.amap.com/)",
   "main": "index.js",
   "scripts": {
