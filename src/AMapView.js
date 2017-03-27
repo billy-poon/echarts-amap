@@ -1,3 +1,7 @@
+/*
+ * this function bollowed from:
+ * https://github.com/Leaflet/Leaflet/blob/master/src/core/Util.js
+ */
 function throttle(fn, time, context) {
 	var lock, args, wrapperFn, later;
 
@@ -25,6 +29,8 @@ function throttle(fn, time, context) {
 
 	return wrapperFn;
 }
+
+var echarts = require('echarts');
 
 module.exports = require('echarts').extendComponentView({
   type: 'amap',
@@ -65,7 +71,7 @@ module.exports = require('echarts').extendComponentView({
     }
 
     function resizeHandler(e) {
-      api.getZr().resize();
+      echarts.getInstanceByDom(api.getDom()).resize();
       moveHandler.call(this, e)
     }
 
