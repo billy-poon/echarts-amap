@@ -1,5 +1,5 @@
 /**
- * BMap component extension
+ * AMap component extension
  */
 require('echarts').registerCoordinateSystem(
   'amap', require('./AMapCoordSys')
