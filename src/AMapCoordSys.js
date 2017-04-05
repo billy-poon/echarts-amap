@@ -90,7 +90,7 @@ AMapCoordSys.create = function (ecModel, api) {
       options = amapModel.__options = echarts.util.clone(options);
       var amap = amapModel.__amap = new AMap.Map(amapRoot, options);
 
-      var layer = amapModel.__layer = new AMap.CustomLayer(viewportRoot);
+      var layer = amapModel.__layer = new AMap.CustomLayer(viewportRoot, { zIndex: 130 });
       layer.setMap(amap);
     }
     var amap = amapModel.getAMap();
