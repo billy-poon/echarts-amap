@@ -77,19 +77,19 @@ module.exports = require('echarts').extendComponentView({
 
     var throttledResizeHandler = throttle(resizeHandler, 300, amap);
 
-    amap.off('movestart', this._oldMoveHandler);
+    // amap.off('movestart', this._oldMoveHandler);
     amap.off('zoomend', this._oldZoomEndHandler);
     amap.off('moveend', this._oldZoomEndHandler);
     amap.off('complete', this._oldZoomEndHandler);
     aMapModel.get('resizeEnable') && amap.off('resize', this._oldResizeHandler);
 
-    amap.on('movestart', moveHandler);
+    // amap.on('movestart', moveHandler);
     amap.on('zoomend', zoomEndHandler);
     amap.on('moveend', zoomEndHandler);
     amap.on('complete', zoomEndHandler);
     aMapModel.get('resizeEnable') && amap.on('resize', throttledResizeHandler);
 
-    this._oldMoveHandler = moveHandler;
+    // this._oldMoveHandler = moveHandler;
     this._oldZoomEndHandler = zoomEndHandler;
     this._oldResizeHandler = throttledResizeHandler;
 
