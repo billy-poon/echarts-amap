@@ -1,7 +1,7 @@
 {
   "name": "echarts-amap",
-  "version": "1.0.0-rc.6",
-  "description": "\u0016an echarts extension to support AMap(http://lbs.amap.com/)",
+  "version": "1.4.15-rc.1",
+  "description": "an echarts extension to support AMap(http://lbs.amap.com/)",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --hot",
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/billy-poon/echarts-amap#readme",
   "devDependencies": {
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
   }
 }
